@@ -1,0 +1,33 @@
+{
+  "name": "nodejs-graphql",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uds214125/nodejs-graphql.git"
+  },
+  "keywords": [
+    "GraphQL",
+    "NodeJs"
+  ],
+  "author": "uds214125",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uds214125/nodejs-graphql/issues"
+  },
+  "homepage": "https://github.com/uds214125/nodejs-graphql#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
