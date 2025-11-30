@@ -11,7 +11,8 @@ const Authors = [
   { id: 4, name: 'F. Scott Fitzgerald' },
   { id: 5, name: 'George Orwell' },
   { id: 6, name: 'Harper Lee' },
-  { id: 7, name: 'Jane Austen' }
+  { id: 7, name: 'Jane Austen' },
+  { id: 8, name: 'Uds' }
 ];
 const Books = [
   {
@@ -102,9 +103,35 @@ const BookQueryType = new GraphQLObjectType({
     }
   })
 });
+// step-5: create your mutations here
+const BooksMutationType = new GraphQLObjectType({
+  name: 'BookMutation',
+  description: 'Books Mutation',
+  fields: () => ({
+    addBook: {
+      type: BookType,
+      description: 'Add a Book',
+      args: {
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        authorId: { type: new GraphQLNonNull(GraphQLInt) }
+      },
+      resolve: (parent, args) => {
+        const book = {
+          id: Books.length + 11,
+          title: args.title,
+          authorId: args.authorId
+        };
+        Books.push(book);
+        return book;
+      }
+    }
+  })
+});
+
 // step-4: create your schema here
 const BookSchema = new GraphQLSchema({
-  query: BookQueryType
+  query: BookQueryType,
+  mutation: BooksMutationType
 });
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -117,10 +144,10 @@ const RootQueryType = new GraphQLObjectType({
 });
 // Alternative simple schema
 const RootSchema = new GraphQLSchema({ query: RootQueryType });
-
+// bind express with your schema
 app.use('/graphql', graphqlHTTP({
   schema: BookSchema,
-  graphiql: true,
+  graphiql: true
 }));
 app.use('/', graphqlHTTP({
   schema: RootSchema,
